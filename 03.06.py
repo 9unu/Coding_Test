@@ -31,39 +31,301 @@ ACM 호텔 매니저 지우는 손님이 도착하는 대로 빈 방을 배정�
 # W : 각층의 방 수
 # N : 몇번째 손님
 
-
 # 함수 작성
 # 호텔의 층 * 각층의 방 수 만큼의 경우의 수가 있다.
 # 한층당 101~10W의 방 호수가 있고
 # 층은 총 H가 있다
 # 가까운 순서대로 배정이기 때문에 101~H01, 102~H02,...순서로 배정해야함
 
-T=int(input())
+# T=int(input())
 
-inputs=[]
-for _ in range(T):
-    line=input().split()
-    inputs.append(list(map(int, line)))
+# inputs=[]
+# for _ in range(T):
+#     line=input().split()
+#     inputs.append(list(map(int, line)))
 
 
-def assign(H,W,N):
-    floar_list=[]
-    room_list=[]
-    for i in range(1,H+1):
-        floar_list.append(i)
-    for i in range(1, W+1):
-        room_list.append(i)
+# def assign(H,W,N):
+#     floor=N%H # 배정할 층 수 : 손님번째를 층수로 나누고 남은 것
 
-    room=1 # 줘야하는 호수 (손님번째수가 6의 배수를 넘을 때마다 호수는 다음으로 밀려난다)
-    for i in range(1, N+1):
-        if(H%i==1):   # H:6층, 호수는 12, 손님은 10번째 -> 2호를 줘야하는거아닌가
-            room+=1
-    floor=N%H # 줘야하는 층수
-    if(room<10):
-        room="0"+str(room)
-    return int(str(floor)+str(room))
-for i in range(T):
-    H=inputs[i][0]
-    W=inputs[i][1]
-    N=inputs[i][2]
-    print(assign(H,W,N))
+#     room=(N//H)+1
+#     if floor==0: # 꼭대기 층
+#         floor=H
+#         room-=1
+    
+#     if(room<10):
+#         room="0"+str(room)
+    
+#     return int(str(floor)+str(room))
+        
+# for i in range(T):
+#     H=inputs[i][0]
+#     W=inputs[i][1]
+#     N=inputs[i][2]
+#     print(assign(H,W,N))
+
+
+
+"""
+2884번
+
+문제
+상근이는 매일 아침 알람을 듣고 일어난다. 알람을 듣고 바로 일어나면 다행이겠지만, 항상 조금만 더 자려는 마음 때문에 매일 학교를 지각하고 있다.
+
+상근이는 모든 방법을 동원해보았지만, 조금만 더 자려는 마음은 그 어떤 것도 없앨 수가 없었다.
+
+이런 상근이를 불쌍하게 보던 창영이는 자신이 사용하는 방법을 추천해 주었다.
+
+바로 "45분 일찍 알람 설정하기"이다.
+
+이 방법은 단순하다. 원래 설정되어 있는 알람을 45분 앞서는 시간으로 바꾸는 것이다. 어차피 알람 소리를 들으면, 알람을 끄고 조금 더 잘 것이기 때문이다. 이 방법을 사용하면, 매일 아침 더 잤다는 기분을 느낄 수 있고, 학교도 지각하지 않게 된다.
+
+현재 상근이가 설정한 알람 시각이 주어졌을 때, 창영이의 방법을 사용한다면, 이를 언제로 고쳐야 하는지 구하는 프로그램을 작성하시오.
+
+
+입력
+첫째 줄에 두 정수 H와 M이 주어진다. (0 ≤ H ≤ 23, 0 ≤ M ≤ 59) 그리고 이것은 현재 상근이가 설정한 알람 시간 H시 M분을 의미한다.
+
+입력 시간은 24시간 표현을 사용한다. 24시간 표현에서 하루의 시작은 0:0(자정)이고, 끝은 23:59(다음날 자정 1분 전)이다. 시간을 나타낼 때, 불필요한 0은 사용하지 않는다.
+
+
+출력
+첫째 줄에 상근이가 창영이의 방법을 사용할 때, 설정해야 하는 알람 시간을 출력한다. (입력과 같은 형태로 출력하면 된다.)
+"""
+
+# input=list(map(int, input().split()))
+
+# H=input[0]
+# M=input[1]
+
+# # 45전 시간으로 맵핑
+
+# c_M=M-45
+# if(H==0 and c_M<0):
+#     H=23
+#     M=60+c_M
+
+
+# elif(c_M<0):
+#     H-=1
+#     M=60+c_M
+# else:
+#     H=H
+#     M=c_M
+
+
+# print(H,M)
+
+
+
+"""
+
+2562번
+
+문제
+9개의 서로 다른 자연수가 주어질 때, 이들 중 최댓값을 찾고 그 최댓값이 몇 번째 수인지를 구하는 프로그램을 작성하시오.
+
+예를 들어, 서로 다른 9개의 자연수
+
+3, 29, 38, 12, 57, 74, 40, 85, 61
+
+이 주어지면, 이들 중 최댓값은 85이고, 이 값은 8번째 수이다.
+
+입력
+첫째 줄부터 아홉 번째 줄까지 한 줄에 하나의 자연수가 주어진다. 주어지는 자연수는 100 보다 작다.
+
+출력
+첫째 줄에 최댓값을 출력하고, 둘째 줄에 최댓값이 몇 번째 수인지를 출력한다.
+
+"""
+# input_list = [int(input()) for _ in range(9)]
+
+# max_num=input_list[0]
+# max_index=0
+# for i in range(len(input_list)):
+#     if(input_list[i]>max_num):
+#         max_num=input_list[i]
+#         max_index=i
+
+# max_index+=1
+
+# print(max_num)
+# print(max_index)
+
+
+"""
+11720번
+
+문제
+N개의 숫자가 공백 없이 쓰여있다. 이 숫자를 모두 합해서 출력하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 숫자의 개수 N (1 ≤ N ≤ 100)이 주어진다. 둘째 줄에 숫자 N개가 공백없이 주어진다.
+
+출력
+입력으로 주어진 숫자 N개의 합을 출력한다.
+"""
+
+# N=input()
+# num=str(input())
+# sum=0
+# for i in num:
+#     sum+=int(i)
+
+# print(sum)
+
+
+"""
+2439번
+
+문제
+첫째 줄에는 별 1개, 둘째 줄에는 별 2개, N번째 줄에는 별 N개를 찍는 문제
+
+하지만, 오른쪽을 기준으로 정렬한 별(예제 참고)을 출력하시오.
+
+입력
+첫째 줄에 N(1 ≤ N ≤ 100)이 주어진다.
+
+출력
+첫째 줄부터 N번째 줄까지 차례대로 별을 출력한다.
+"""
+
+# # N개를 맨밑에 그려야함
+# num=int(input())
+
+# for i in range(1, num+1):
+#     print((num-i)*" "+"*"*i)
+
+
+"""
+2577번
+
+문제
+세 개의 자연수 A, B, C가 주어질 때 A × B × C를 계산한 결과에 0부터 9까지 각각의 숫자가 몇 번씩 쓰였는지를 구하는 프로그램을 작성하시오.
+
+예를 들어 A = 150, B = 266, C = 427 이라면 A × B × C = 150 × 266 × 427 = 17037300 이 되고, 계산한 결과 17037300 에는 0이 3번, 1이 1번, 3이 2번, 7이 2번 쓰였다.
+
+입력
+첫째 줄에 A, 둘째 줄에 B, 셋째 줄에 C가 주어진다. A, B, C는 모두 100보다 크거나 같고, 1,000보다 작은 자연수이다.
+
+출력
+첫째 줄에는 A × B × C의 결과에 0 이 몇 번 쓰였는지 출력한다. 마찬가지로 둘째 줄부터 열 번째 줄까지 A × B × C의 결과에 1부터 9까지의 숫자가 각각 몇 번 쓰였는지 차례로 한 줄에 하나씩 출력한다.
+
+
+"""
+
+# input_list=[int(input()) for _ in range(3)]
+
+# product=1
+# for i in input_list:
+#     product*=i
+
+# target=str(product)
+
+# index_list=[0]*10
+# num_list=[i for i in range(10)]
+# for i in target:
+#     for j in range(len(num_list)):
+#         if(int(i)==j):
+#             index_list[j]+=1
+
+# for i in index_list:
+#     print(i)
+
+
+"""
+문제
+문자열 S를 입력받은 후에, 각 문자를 R번 반복해 새 문자열 P를 만든 후 출력하는 프로그램을 작성하시오. 즉, 첫 번째 문자를 R번 반복하고, 두 번째 문자를 R번 반복하는 식으로 P를 만들면 된다. S에는 QR Code "alphanumeric" 문자만 들어있다.
+
+QR Code "alphanumeric" 문자는 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\$%*+-./: 이다.
+
+입력
+첫째 줄에 테스트 케이스의 개수 T(1 ≤ T ≤ 1,000)가 주어진다. 각 테스트 케이스는 반복 횟수 R(1 ≤ R ≤ 8), 문자열 S가 공백으로 구분되어 주어진다. S의 길이는 적어도 1이며, 20글자를 넘지 않는다. 
+
+출력
+각 테스트 케이스에 대해 P를 출력한다.
+"""
+
+
+# T=int(input())
+# input_list=[input().split() for _ in range(T)]
+
+# def Change_Str(list):
+#     num=int(list[0])
+#     str_1=list[1]
+#     new_str="".join([char * num for char in str_1])
+#     return new_str
+
+# for test_case in input_list:
+#     print(Change_Str(test_case))
+    
+
+
+"""
+
+문제
+팀 레드시프트는 대회 준비를 하다가 지루해져서 샌드박스 게임인 ‘마인크래프트’를 켰다. 마인크래프트는 1 × 1 × 1(세로, 가로, 높이) 크기의 블록들로 이루어진 3차원 세계에서 자유롭게 땅을 파거나 집을 지을 수 있는 게임이다.
+
+목재를 충분히 모은 lvalue는 집을 짓기로 하였다. 하지만 고르지 않은 땅에는 집을 지을 수 없기 때문에 땅의 높이를 모두 동일하게 만드는 ‘땅 고르기’ 작업을 해야 한다.
+
+lvalue는 세로 N, 가로 M 크기의 집터를 골랐다. 집터 맨 왼쪽 위의 좌표는 (0, 0)이다. 우리의 목적은 이 집터 내의 땅의 높이를 일정하게 바꾸는 것이다. 우리는 다음과 같은 두 종류의 작업을 할 수 있다.
+
+1번 : 좌표 (i, j)의 가장 위에 있는 블록을 제거하여 인벤토리에 넣는다.
+2번 :인벤토리에서 블록 하나를 꺼내어 좌표 (i, j)의 가장 위에 있는 블록 위에 놓는다.
+1번 작업은 2초가 걸리며, 2번 작업은 1초가 걸린다. 밤에는 무서운 몬스터들이 나오기 때문에 최대한 빨리 땅 고르기 작업을 마쳐야 한다. ‘땅 고르기’ 작업에 걸리는 최소 시간과 그 경우 땅의 높이를 출력하시오.
+
+단, 집터 아래에 동굴 등 빈 공간은 존재하지 않으며, 집터 바깥에서 블록을 가져올 수 없다. 또한, 작업을 시작할 때 인벤토리에는 B개의 블록이 들어 있다. 땅의 높이는 256블록을 초과할 수 없으며, 음수가 될 수 없다.
+
+
+입력
+첫째 줄에 N, M, B가 주어진다. (1 ≤ M, N ≤ 500, 0 ≤ B ≤ 6.4 × 107)
+
+둘째 줄부터 N개의 줄에 각각 M개의 정수로 땅의 높이가 주어진다. (i + 2)번째 줄의 (j + 1)번째 수는 좌표 (i, j)에서의 땅의 높이를 나타낸다. 땅의 높이는 256보다 작거나 같은 자연수 또는 0이다.
+
+
+
+출력
+첫째 줄에 땅을 고르는 데 걸리는 시간과 땅의 높이를 출력하시오. 답이 여러 개 있다면 그중에서 땅의 높이가 가장 높은 것을 출력하시오.
+"""
+
+
+# 구해야하는 것 : 땅을 고르는데 걸리는 최소 시간과 땅의 높이 (여러개라면 땅의 높이가 가장 높은 것)
+
+
+#입력받기
+MAX_HEIGHT = 256
+MIN_HEIGHT = 0
+N, M, B = map(int, input().split())
+board = [ list(map(int, input().split())) for _ in range(N)]
+height_cnt = [0 for _ in range(MAX_HEIGHT + 1)]
+answer_cost = 100000001
+answer_height = 0
+sum_height = B 
+
+#각 높이의 개수를 저장하는 리스트 입력받기 
+for row in board:
+    for val in row:
+        height_cnt[val] += 1
+        sum_height += val
+     
+#가능한 높이값들을 저장
+min_h = min([ min(row) for row in board ])
+max_h = sum_height // (M * N)
+
+#각 높이를 평탄화 하는데 걸리는 시간 탐색미
+for h in range(min_h, max_h+1):
+    cost = 0
+    usable_blocks = B
+    for i in range(MIN_HEIGHT, MAX_HEIGHT+1 ):
+        if h < i:
+            cost += height_cnt[i] * abs(h - i) * 2
+            usable_blocks += height_cnt[i] * abs(h - i)
+        else:
+            cost += height_cnt[i] * abs(h - i)
+            usable_blocks -= height_cnt[i] * abs(h - i)
+            
+    if cost <= answer_cost and usable_blocks >= 0:
+        answer_cost = cost
+        answer_height = h
+
+print(answer_cost, answer_height)
